@@ -6,7 +6,7 @@ Quotifyyyy is a simple web application that displays a random motivational quote
 
 
 ## Reference
-- Quote of the Day Source: https://tinyurl.com/5penhwkk
+- Link: https://tinyurl.com/5penhwkk
 
 ## Features
 - Displays a random quote and its author from a predefined list
