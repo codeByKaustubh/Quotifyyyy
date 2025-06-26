@@ -5,7 +5,7 @@ Add a “Read Aloud” button to have the quote spoken using the Web Speech API.
 Allow users (not just admins) to submit their own quotes for approval.
 Add moderation for submitted quotes.
 
-3. Animations and Transitions
+3. Animations and Transitions (done)
 Animate the transition between quotes (fade, slide, etc.).
 Add subtle animations to buttons and panels.
 
