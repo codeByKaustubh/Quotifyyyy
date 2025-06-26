@@ -9,7 +9,7 @@ Add moderation for submitted quotes.
 Animate the transition between quotes (fade, slide, etc.).
 Add subtle animations to buttons and panels.
 
-4. Quote Sharing
+4. Quote Sharing (done)
 Add “Share” buttons to copy the quote to clipboard or share on social media (Twitter, Facebook, etc.).
 Add a “Copy” button to copy the quote text.
 
