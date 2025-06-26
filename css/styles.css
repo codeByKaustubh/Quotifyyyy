@@ -103,6 +103,27 @@ body.dark-theme .theme-switch {
   to { opacity: 1; }
 }
 
+@keyframes swipeLeft {
+  0% { opacity: 1; transform: translateX(0); }
+  40% { opacity: 0; transform: translateX(-60px); }
+  60% { opacity: 0; transform: translateX(60px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes swipeRight {
+  0% { opacity: 1; transform: translateX(0); }
+  40% { opacity: 0; transform: translateX(60px); }
+  60% { opacity: 0; transform: translateX(-60px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+#quote.swipe-left, #author.swipe-left {
+  animation: swipeLeft 0.5s;
+}
+#quote.swipe-right, #author.swipe-right {
+  animation: swipeRight 0.5s;
+}
+
 /* Button and panel hover/active animations */
 .theme-switch, .admin-panel button {
   transition: background 0.2s, color 0.2s, transform 0.1s;
