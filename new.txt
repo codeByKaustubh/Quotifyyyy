@@ -20,3 +20,6 @@ Add a button to show a random quote at any time (not just on page load).
 Let users mark quotes as favorites.
 Add a “Show Favorites” toggle to view only favorite quotes.
 Store favorites in localStorage.
+
+7. Feedback (done)
+Let users submit a feedback 
