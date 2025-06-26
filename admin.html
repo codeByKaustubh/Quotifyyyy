@@ -82,6 +82,10 @@
         </form>
         <ul id="quotesList"></ul>
     </div>
+    <div id="moderationPanel" class="admin-panel" style="display:none; margin-top: 2rem;">
+        <h2>Moderate User-Submitted Quotes</h2>
+        <ul id="pendingQuotesList"></ul>
+    </div>
     <script>
         // Use localStorage to persist quotes between sessions
         let quotes = JSON.parse(localStorage.getItem('quotes')) || [
@@ -102,6 +106,13 @@
         }
 
         function renderQuotesList() {
+            let quotes = JSON.parse(localStorage.getItem('quotes')) || [
+                { text: "The best way to get started is to quit talking and begin doing.", author: "Walt Disney" },
+                { text: "Success is not the key to happiness. Happiness is the key to success.", author: "Albert Schweitzer" },
+                { text: "Your time is limited, so don't waste it living someone else's life.", author: "Steve Jobs" },
+                { text: "The only place where success comes before work is in the dictionary.", author: "Vidal Sassoon" },
+                { text: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson" }
+            ];
             quotesList.innerHTML = '';
             quotes.forEach((q, i) => {
                 const li = document.createElement('li');
@@ -163,6 +174,66 @@
 
         // Remove auto-login: always require password on each visit
         sessionStorage.removeItem('admin-auth');
+
+        // Moderation for user-submitted quotes
+        const moderationPanel = document.getElementById('moderationPanel');
+        const pendingQuotesList = document.getElementById('pendingQuotesList');
+
+        function renderPendingQuotes() {
+            let pendingQuotes = JSON.parse(localStorage.getItem('pendingQuotes')) || [];
+            pendingQuotesList.innerHTML = '';
+            if (pendingQuotes.length === 0) {
+                pendingQuotesList.innerHTML = '<li style="color:#64748b;">No pending quotes.</li>';
+                return;
+            }
+            pendingQuotes.forEach((q, i) => {
+                const li = document.createElement('li');
+                li.style.display = 'flex';
+                li.style.alignItems = 'center';
+                li.style.gap = '0.5rem';
+                li.innerHTML = `
+                    <span style="flex:1;">"${q.text}" - <em>${q.author}</em></span>
+                    <button class="approve-quote" data-index="${i}" style="background:#22c55e;">Approve</button>
+                    <button class="reject-quote" data-index="${i}" style="background:#ef4444;">Reject</button>
+                `;
+                pendingQuotesList.appendChild(li);
+            });
+        }
+
+        moderationPanel.addEventListener('click', function(e) {
+            let pendingQuotes = JSON.parse(localStorage.getItem('pendingQuotes')) || [];
+            if (e.target.classList.contains('approve-quote')) {
+                const idx = e.target.getAttribute('data-index');
+                // Add to main quotes
+                let quotes = JSON.parse(localStorage.getItem('quotes')) || [];
+                quotes.push(pendingQuotes[idx]);
+                localStorage.setItem('quotes', JSON.stringify(quotes));
+                // Remove from pending
+                pendingQuotes.splice(idx, 1);
+                localStorage.setItem('pendingQuotes', JSON.stringify(pendingQuotes));
+                renderPendingQuotes();
+                renderQuotesList();
+            } else if (e.target.classList.contains('reject-quote')) {
+                const idx = e.target.getAttribute('data-index');
+                pendingQuotes.splice(idx, 1);
+                localStorage.setItem('pendingQuotes', JSON.stringify(pendingQuotes));
+                renderPendingQuotes();
+            }
+        });
+
+        function showModerationPanel() {
+            moderationPanel.style.display = 'block';
+            renderPendingQuotes();
+        }
+
+        // Show moderation panel after admin login
+        const originalShowAdminPanel = adminPanel.style.display;
+        const observer = new MutationObserver(() => {
+            if (adminPanel.style.display === 'block') {
+                showModerationPanel();
+            }
+        });
+        observer.observe(adminPanel, { attributes: true, attributeFilter: ['style'] });
     </script>
 </body>
 </html> 
