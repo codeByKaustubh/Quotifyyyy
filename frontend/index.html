@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote of the Day</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Quote of the Day</h1>
+        <div class="quote-box">
+            <p id="quote">"The best way to get started is to quit talking and begin doing."</p>
+            <span id="author">- Walt Disney</span>
+        </div>
+    </div>
+    <script>
+        const quotes = [
+            { text: "The best way to get started is to quit talking and begin doing.", author: "Walt Disney" },
+            { text: "Success is not the key to happiness. Happiness is the key to success.", author: "Albert Schweitzer" },
+            { text: "Your time is limited, so don't waste it living someone else's life.", author: "Steve Jobs" },
+            { text: "The only place where success comes before work is in the dictionary.", author: "Vidal Sassoon" },
+            { text: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson" }
+        ];
+        const random = Math.floor(Math.random() * quotes.length);
+        document.getElementById('quote').textContent = `"${quotes[random].text}"`;
+        document.getElementById('author').textContent = `- ${quotes[random].author}`;
+    </script>
+</body>
+</html> 
