@@ -1,5 +1,7 @@
 # Quotify
 
+> **Note:** Quotify is still in development stages. Features and design may change.
+
 Quotify is a simple web application that displays a random motivational quote each time the page is loaded.
 
 
