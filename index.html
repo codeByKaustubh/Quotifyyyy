@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-    <div style="margin:2rem auto 1.2rem auto;color:#64748b;font-size:0.98rem;text-align:center;max-width:500px;">
-        Quotifyyyy is your daily source of inspiration. Browse and save your favorite motivational quotes!
-    </div>
     <div class="container">
+        <div style="margin-bottom:0.5rem;color:#64748b;font-size:0.98rem;text-align:center;">
+            Quotifyyyy is your daily source of inspiration. Browse and save your favorite motivational quotes!
+        </div>
         <h1>Quotifyyyy</h1>
         <div class="quote-box">
             <p id="quote">"The best way to get started is to quit talking and begin doing."</p>
@@ -27,6 +27,7 @@
         </div>
         <button id="themeSwitch" class="theme-switch">Switch Theme</button>
         <a href="admin.html" class="theme-switch" style="display:inline-block;text-align:center;margin-top:0.5rem;">Admin Login</a>
+        <input type="text" id="searchBar" placeholder="Search quotes or authors..." style="width:100%;margin-bottom:1rem;padding:0.5rem 1rem;border-radius:8px;border:1px solid #cbd5e1;">
     </div>
     <script>
         let quotes = JSON.parse(localStorage.getItem('quotes')) || [
@@ -147,6 +148,16 @@
                 filteredQuotes = quotes.filter(q => favorites.some(f => f.text === q.text && f.author === q.author));
             } else {
                 filteredQuotes = [...quotes];
+            }
+            currentIndex = 0;
+            showQuote(currentIndex);
+        });
+
+        document.getElementById('searchBar').addEventListener('input', function(e) {
+            filterQuotes(e.target.value);
+            // If showing favorites, re-filter to favorites only
+            if (showFavoritesOnly) {
+                filteredQuotes = filteredQuotes.filter(q => favorites.some(f => f.text === q.text && f.author === q.author));
             }
             currentIndex = 0;
             showQuote(currentIndex);
