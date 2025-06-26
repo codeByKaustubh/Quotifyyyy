@@ -33,6 +33,13 @@
         </div>
         <button id="themeSwitch" class="theme-switch">Switch Theme</button>
         <a href="admin.html" class="theme-switch" style="display:inline-block;text-align:center;margin-top:0.5rem;">Admin Login</a>
+        <form id="feedbackForm" style="margin:2rem auto 0 auto;max-width:400px;text-align:center;">
+            <h3 style="color:#4f46e5;margin-bottom:0.5rem;">Feedback</h3>
+            <textarea id="feedbackText" placeholder="Your feedback..." required style="width:100%;max-width:100%;min-height:60px;padding:0.5rem;border-radius:8px;border:1px solid #cbd5e1;margin-bottom:0.5rem;box-sizing:border-box;resize:vertical;"></textarea>
+            <br>
+            <button type="submit" class="theme-switch" style="width:120px;">Submit</button>
+            <div id="feedbackMsg" style="color:#22c55e;display:none;margin-top:0.5rem;">Thank you for your feedback!</div>
+        </form>
     </div>
     <script>
         let quotes = JSON.parse(localStorage.getItem('quotes')) || [
@@ -172,6 +179,21 @@
             document.getElementById('submitQuoteMsg').style.display = 'block';
             setTimeout(() => {
                 document.getElementById('submitQuoteMsg').style.display = 'none';
+            }, 3000);
+        });
+
+        // User feedback
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const text = document.getElementById('feedbackText').value.trim();
+            if (!text) return;
+            let userFeedback = JSON.parse(localStorage.getItem('userFeedback')) || [];
+            userFeedback.push({ text, date: new Date().toISOString() });
+            localStorage.setItem('userFeedback', JSON.stringify(userFeedback));
+            document.getElementById('feedbackText').value = '';
+            document.getElementById('feedbackMsg').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('feedbackMsg').style.display = 'none';
             }, 3000);
         });
     </script>
