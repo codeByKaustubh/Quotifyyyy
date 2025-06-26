@@ -23,6 +23,7 @@
                 <button id="copyBtn" class="theme-switch" style="margin-left:0.5rem;">Copy</button>
                 <button id="twitterBtn" class="theme-switch" style="margin-left:0.5rem;">Share on Twitter</button>
                 <button id="instagramBtn" class="theme-switch" style="margin-left:0.5rem;">Share on Instagram Story</button>
+                <button id="generateImageBtn" class="theme-switch" style="margin-left:0.5rem;">Generate Image</button>
             </div>
             <div style="margin-top:0.5rem;">
                 <label style="cursor:pointer;"><input type="checkbox" id="showFavoritesToggle" style="margin-right:0.5rem;">Show Favorites Only</label>
@@ -162,6 +163,57 @@
                 window.open('https://instagram.com', '_blank');
             });
         });
+
+        // Generate Quote Image
+        document.getElementById('generateImageBtn').addEventListener('click', function() {
+            const quote = document.getElementById('quote').textContent.replace(/^"|"$/g, '');
+            const author = document.getElementById('author').textContent;
+            const canvas = document.createElement('canvas');
+            const width = 600;
+            const height = 400;
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, width, height);
+            gradient.addColorStop(0, '#a5b4fc');
+            gradient.addColorStop(1, '#f1f5f9');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, width, height);
+            // Quote text
+            ctx.font = 'bold 24px Segoe UI, Arial, sans-serif';
+            ctx.fillStyle = '#3730a3';
+            wrapText(ctx, `"${quote}"`, 40, 120, width - 80, 32);
+            // Author
+            ctx.font = 'italic 20px Segoe UI, Arial, sans-serif';
+            ctx.fillStyle = '#64748b';
+            ctx.textAlign = 'right';
+            ctx.fillText(author, width - 40, height - 60);
+            // Download
+            const link = document.createElement('a');
+            link.download = 'quote.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        });
+
+        // Helper function to wrap text
+        function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+            const words = text.split(' ');
+            let line = '';
+            for(let n = 0; n < words.length; n++) {
+                const testLine = line + words[n] + ' ';
+                const metrics = ctx.measureText(testLine);
+                const testWidth = metrics.width;
+                if (testWidth > maxWidth && n > 0) {
+                    ctx.fillText(line, x, y);
+                    line = words[n] + ' ';
+                    y += lineHeight;
+                } else {
+                    line = testLine;
+                }
+            }
+            ctx.fillText(line, x, y);
+        }
 
         function getCurrentQuoteObj() {
             return filteredQuotes[currentIndex];
