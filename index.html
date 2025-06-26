@@ -29,15 +29,24 @@
             { text: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson" }
         ];
         let currentIndex = 0;
-        function showQuote(index) {
+        function showQuote(index, animation) {
             if (quotes.length === 0) {
                 document.getElementById('quote').textContent = "No quotes available.";
                 document.getElementById('author').textContent = "";
             } else {
-                document.getElementById('quote').textContent = `"${quotes[index].text}"`;
-                document.getElementById('author').textContent = `- ${quotes[index].author}`;
+                const quoteElem = document.getElementById('quote');
+                const authorElem = document.getElementById('author');
+                quoteElem.textContent = `"${quotes[index].text}"`;
+                authorElem.textContent = `- ${quotes[index].author}`;
+                if (animation) {
+                    quoteElem.classList.remove('swipe-left', 'swipe-right');
+                    authorElem.classList.remove('swipe-left', 'swipe-right');
+                    void quoteElem.offsetWidth; // force reflow
+                    void authorElem.offsetWidth;
+                    quoteElem.classList.add(animation);
+                    authorElem.classList.add(animation);
+                }
             }
-
         }
         if (quotes.length > 0) {
             currentIndex = Math.floor(Math.random() * quotes.length);
@@ -47,13 +56,13 @@
         document.getElementById('nextQuote').addEventListener('click', function() {
             if (quotes.length > 0) {
                 currentIndex = (currentIndex + 1) % quotes.length;
-                showQuote(currentIndex);
+                showQuote(currentIndex, 'swipe-left');
             }
         });
         document.getElementById('prevQuote').addEventListener('click', function() {
             if (quotes.length > 0) {
                 currentIndex = (currentIndex - 1 + quotes.length) % quotes.length;
-                showQuote(currentIndex);
+                showQuote(currentIndex, 'swipe-right');
             }
         });
 
@@ -71,6 +80,14 @@
         if(localStorage.getItem('theme') === 'dark') {
             document.body.classList.add('dark-theme');
         }
+
+        // Remove animation class after animation ends
+        document.getElementById('quote').addEventListener('animationend', function() {
+            this.classList.remove('swipe-left', 'swipe-right');
+        });
+        document.getElementById('author').addEventListener('animationend', function() {
+            this.classList.remove('swipe-left', 'swipe-right');
+        });
     </script>
 </body>
 </html> 
