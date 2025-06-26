@@ -15,6 +15,7 @@
             <div style="margin-top:1rem;">
                 <button id="prevQuote" class="theme-switch" style="margin-right:0.5rem;">Previous</button>
                 <button id="nextQuote" class="theme-switch">Next</button>
+                <button id="readAloudBtn" class="theme-switch" style="margin-left:0.5rem;">🔊 Read Aloud</button>
             </div>
         </div>
         <button id="themeSwitch" class="theme-switch">Switch Theme</button>
@@ -87,6 +88,14 @@
         });
         document.getElementById('author').addEventListener('animationend', function() {
             this.classList.remove('swipe-left', 'swipe-right');
+        });
+
+        // Read Aloud feature
+        document.getElementById('readAloudBtn').addEventListener('click', function() {
+            const quote = document.getElementById('quote').textContent;
+            const author = document.getElementById('author').textContent;
+            const utterance = new SpeechSynthesisUtterance(`${quote} ${author}`);
+            window.speechSynthesis.speak(utterance);
         });
     </script>
 </body>
