@@ -2,6 +2,10 @@
 
 Quotify is a simple web application that displays a random motivational quote each time the page is loaded.
 
+
+## Reference
+- Quote of the Day Source: https://tinyurl.com/5penhwkk
+
 ## Features
 - Displays a random quote and its author from a predefined list
 - Clean and modern user interface
@@ -16,6 +20,3 @@ Quotify is a simple web application that displays a random motivational quote ea
 2. Each time you refresh the page, a new quote will be displayed.
 
 No installation or dependencies are required—just open the HTML file to get started!
-
-## Reference
-- Quote of the Day Source: https://tinyurl.com/5penhwkk
