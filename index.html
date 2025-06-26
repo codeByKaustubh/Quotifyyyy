@@ -18,8 +18,8 @@
             <div style="margin-top:1rem;">
                 <button id="prevQuote" class="theme-switch" style="margin-right:0.5rem;">Previous</button>
                 <button id="nextQuote" class="theme-switch">Next</button>
-                <button id="readAloudBtn" class="theme-switch" style="margin-left:0.5rem;">🔊 Read Aloud</button>
-                <button id="favoriteBtn" class="theme-switch" style="margin-left:0.5rem;">☆ Favorite</button>
+                <button id="readAloudBtn" class="theme-switch" style="margin-left:0.5rem;">Read Aloud</button>
+                <button id="favoriteBtn" class="theme-switch" style="margin-left:0.5rem;">Favorite</button>
             </div>
             <div style="margin-top:0.5rem;">
                 <label style="cursor:pointer;"><input type="checkbox" id="showFavoritesToggle" style="margin-right:0.5rem;">Show Favorites Only</label>
@@ -27,7 +27,6 @@
         </div>
         <button id="themeSwitch" class="theme-switch">Switch Theme</button>
         <a href="admin.html" class="theme-switch" style="display:inline-block;text-align:center;margin-top:0.5rem;">Admin Login</a>
-        <input type="text" id="searchBar" placeholder="Search quotes or authors..." style="width:100%;margin-bottom:1rem;padding:0.5rem 1rem;border-radius:8px;border:1px solid #cbd5e1;">
     </div>
     <script>
         let quotes = JSON.parse(localStorage.getItem('quotes')) || [
@@ -148,16 +147,6 @@
                 filteredQuotes = quotes.filter(q => favorites.some(f => f.text === q.text && f.author === q.author));
             } else {
                 filteredQuotes = [...quotes];
-            }
-            currentIndex = 0;
-            showQuote(currentIndex);
-        });
-
-        document.getElementById('searchBar').addEventListener('input', function(e) {
-            filterQuotes(e.target.value);
-            // If showing favorites, re-filter to favorites only
-            if (showFavoritesOnly) {
-                filteredQuotes = filteredQuotes.filter(q => favorites.some(f => f.text === q.text && f.author === q.author));
             }
             currentIndex = 0;
             showQuote(currentIndex);
