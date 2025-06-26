@@ -6,6 +6,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background 0.3s;
+}
+
+body.dark-theme {
+    background: linear-gradient(135deg, #18181b 0%, #312e81 100%);
 }
 
 .container {
@@ -16,6 +21,12 @@ body {
     text-align: center;
     max-width: 400px;
     width: 100%;
+    transition: background 0.3s, color 0.3s;
+}
+
+body.dark-theme .container {
+    background: #23272f;
+    color: #f1f5f9;
 }
 
 h1 {
@@ -23,6 +34,11 @@ h1 {
     margin-bottom: 1.5rem;
     font-size: 2rem;
     letter-spacing: 1px;
+    transition: color 0.3s;
+}
+
+body.dark-theme h1 {
+    color: #a5b4fc;
 }
 
 .quote-box {
@@ -31,6 +47,12 @@ h1 {
     padding: 1.5rem 1rem;
     margin-bottom: 1rem;
     box-shadow: 0 2px 8px rgba(60, 72, 88, 0.07);
+    transition: background 0.3s, color 0.3s;
+}
+
+body.dark-theme .quote-box {
+    background: #1e293b;
+    color: #f1f5f9;
 }
 
 #quote {
@@ -38,10 +60,37 @@ h1 {
     color: #334155;
     margin: 0 0 0.75rem 0;
     font-style: italic;
+    transition: color 0.3s;
+}
+
+body.dark-theme #quote {
+    color: #e0e7ff;
 }
 
 #author {
     color: #64748b;
     font-size: 1rem;
     font-weight: 500;
+    transition: color 0.3s;
+}
+
+body.dark-theme #author {
+    color: #a5b4fc;
+}
+
+.theme-switch {
+    margin-top: 1rem;
+    padding: 0.5rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    background: #4f46e5;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+}
+
+body.dark-theme .theme-switch {
+    background: #a5b4fc;
+    color: #23272f;
 } 
