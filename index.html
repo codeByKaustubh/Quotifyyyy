@@ -8,24 +8,72 @@
 </head>
 <body>
     <div class="container">
+        <input type="text" id="searchBar" placeholder="Search quotes or authors..." style="width:100%;margin-bottom:1rem;padding:0.5rem 1rem;border-radius:8px;border:1px solid #cbd5e1;">
         <h1>Quotifyyyy</h1>
         <div class="quote-box">
             <p id="quote">"The best way to get started is to quit talking and begin doing."</p>
             <span id="author">- Walt Disney</span>
+            <div style="margin-top:1rem;">
+                <button id="prevQuote" class="theme-switch" style="margin-right:0.5rem;">Previous</button>
+                <button id="nextQuote" class="theme-switch">Next</button>
+            </div>
         </div>
         <button id="themeSwitch" class="theme-switch">Switch Theme</button>
+        <a href="admin.html" class="theme-switch" style="display:inline-block;text-align:center;margin-top:0.5rem;">Admin Login</a>
     </div>
     <script>
-        const quotes = [
+        let quotes = JSON.parse(localStorage.getItem('quotes')) || [
             { text: "The best way to get started is to quit talking and begin doing.", author: "Walt Disney" },
             { text: "Success is not the key to happiness. Happiness is the key to success.", author: "Albert Schweitzer" },
             { text: "Your time is limited, so don't waste it living someone else's life.", author: "Steve Jobs" },
             { text: "The only place where success comes before work is in the dictionary.", author: "Vidal Sassoon" },
             { text: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson" }
         ];
-        const random = Math.floor(Math.random() * quotes.length);
-        document.getElementById('quote').textContent = `"${quotes[random].text}"`;
-        document.getElementById('author').textContent = `- ${quotes[random].author}`;
+        let filteredQuotes = [...quotes];
+        let currentIndex = 0;
+        function showQuote(index) {
+            if (filteredQuotes.length === 0) {
+                document.getElementById('quote').textContent = "No quotes found.";
+                document.getElementById('author').textContent = "";
+            } else {
+                document.getElementById('quote').textContent = `"${filteredQuotes[index].text}"`;
+                document.getElementById('author').textContent = `- ${filteredQuotes[index].author}`;
+            }
+        }
+        function filterQuotes(query) {
+            query = query.trim().toLowerCase();
+            if (!query) {
+                filteredQuotes = [...quotes];
+            } else {
+                filteredQuotes = quotes.filter(q =>
+                    q.text.toLowerCase().includes(query) ||
+                    q.author.toLowerCase().includes(query)
+                );
+            }
+            currentIndex = 0;
+            showQuote(currentIndex);
+        }
+        if (filteredQuotes.length > 0) {
+            currentIndex = Math.floor(Math.random() * filteredQuotes.length);
+        }
+        showQuote(currentIndex);
+
+        document.getElementById('nextQuote').addEventListener('click', function() {
+            if (filteredQuotes.length > 0) {
+                currentIndex = (currentIndex + 1) % filteredQuotes.length;
+                showQuote(currentIndex);
+            }
+        });
+        document.getElementById('prevQuote').addEventListener('click', function() {
+            if (filteredQuotes.length > 0) {
+                currentIndex = (currentIndex - 1 + filteredQuotes.length) % filteredQuotes.length;
+                showQuote(currentIndex);
+            }
+        });
+
+        document.getElementById('searchBar').addEventListener('input', function(e) {
+            filterQuotes(e.target.value);
+        });
 
         // Theme switch logic
         const themeSwitch = document.getElementById('themeSwitch');
