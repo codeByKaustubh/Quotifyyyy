@@ -8,6 +8,9 @@
 </head>
 <body>
     <div class="container">
+        <div style="margin-bottom:0.5rem;color:#64748b;font-size:0.98rem;text-align:center;">
+            Quotifyyyy is your daily source of inspiration. Browse and save your favorite motivational quotes!
+        </div>
         <h1>Quotifyyyy</h1>
         <div class="quote-box">
             <p id="quote">"The best way to get started is to quit talking and begin doing."</p>
@@ -24,6 +27,7 @@
         </div>
         <button id="themeSwitch" class="theme-switch">Switch Theme</button>
         <a href="admin.html" class="theme-switch" style="display:inline-block;text-align:center;margin-top:0.5rem;">Admin Login</a>
+        <input type="text" id="searchBar" placeholder="Search quotes or authors..." style="width:100%;margin-bottom:1rem;padding:0.5rem 1rem;border-radius:8px;border:1px solid #cbd5e1;">
     </div>
     <script>
         let quotes = JSON.parse(localStorage.getItem('quotes')) || [
