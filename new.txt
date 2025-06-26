@@ -16,7 +16,7 @@ Add a “Copy” button to copy the quote text.
 5.Random Quote Button
 Add a button to show a random quote at any time (not just on page load).
 
-6. Favorite Quotes
+6. Favorite Quotes (done)
 Let users mark quotes as favorites.
 Add a “Show Favorites” toggle to view only favorite quotes.
 Store favorites in localStorage.
