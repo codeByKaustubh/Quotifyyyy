@@ -183,4 +183,48 @@ body.dark-theme .theme-switch {
     align-items: stretch;
     gap: 0.3rem;
   }
+}
+
+/* Absolute navigation buttons for Previous/Next outside container */
+.nav-absolute {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+.nav-left {
+  left: calc(50% - 350px); /* Adjust 350px to half your container width + margin */
+}
+.nav-right {
+  right: calc(50% - 350px);
+}
+
+@media (max-width: 900px) {
+  .nav-absolute {
+    position: static;
+    transform: none;
+    margin: 1rem auto;
+    display: block;
+  }
+  .nav-left, .nav-right {
+    left: unset;
+    right: unset;
+  }
+  .nav-side-btn {
+    min-width: 90px;
+    width: 90vw;
+    max-width: 350px;
+    height: 48px;
+    font-size: 1rem;
+    margin: 0.5rem auto;
+    display: block;
+  }
+}
+
+.nav-side-btn {
+  min-width: 120px;
+  height: 60px;
+  font-size: 1.25rem;
+  border-radius: 12px;
+  align-self: stretch;
 } 
