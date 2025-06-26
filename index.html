@@ -20,6 +20,9 @@
                 <button id="nextQuote" class="theme-switch">Next</button>
                 <button id="readAloudBtn" class="theme-switch" style="margin-left:0.5rem;">Read Aloud</button>
                 <button id="favoriteBtn" class="theme-switch" style="margin-left:0.5rem;">Favorite</button>
+                <button id="copyBtn" class="theme-switch" style="margin-left:0.5rem;">Copy</button>
+                <button id="twitterBtn" class="theme-switch" style="margin-left:0.5rem;">Share on Twitter</button>
+                <button id="instagramBtn" class="theme-switch" style="margin-left:0.5rem;">Share on Instagram Story</button>
             </div>
             <div style="margin-top:0.5rem;">
                 <label style="cursor:pointer;"><input type="checkbox" id="showFavoritesToggle" style="margin-right:0.5rem;">Show Favorites Only</label>
@@ -122,6 +125,42 @@
             const author = document.getElementById('author').textContent;
             const utterance = new SpeechSynthesisUtterance(`${quote} ${author}`);
             window.speechSynthesis.speak(utterance);
+        });
+
+        // Copy to clipboard
+        document.getElementById('copyBtn').addEventListener('click', function() {
+            const quote = document.getElementById('quote').textContent;
+            const author = document.getElementById('author').textContent;
+            const text = `${quote} ${author}`;
+            navigator.clipboard.writeText(text).then(() => {
+                document.getElementById('copyBtn').textContent = 'Copied!';
+                setTimeout(() => {
+                    document.getElementById('copyBtn').textContent = 'Copy';
+                }, 1500);
+            });
+        });
+
+        // Share on Twitter
+        document.getElementById('twitterBtn').addEventListener('click', function() {
+            const quote = document.getElementById('quote').textContent;
+            const author = document.getElementById('author').textContent;
+            const text = encodeURIComponent(`${quote} ${author}`);
+            const url = `https://twitter.com/intent/tweet?text=${text}`;
+            window.open(url, '_blank');
+        });
+
+        // Share on Instagram Story (copy to clipboard and open Instagram)
+        document.getElementById('instagramBtn').addEventListener('click', function() {
+            const quote = document.getElementById('quote').textContent;
+            const author = document.getElementById('author').textContent;
+            const text = `${quote} ${author}`;
+            navigator.clipboard.writeText(text).then(() => {
+                document.getElementById('instagramBtn').textContent = 'Copied!';
+                setTimeout(() => {
+                    document.getElementById('instagramBtn').textContent = 'Share on Instagram Story';
+                }, 1500);
+                window.open('https://instagram.com', '_blank');
+            });
         });
 
         function getCurrentQuoteObj() {
