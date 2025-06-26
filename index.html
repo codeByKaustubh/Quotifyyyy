@@ -24,6 +24,12 @@
             <div style="margin-top:0.5rem;">
                 <label style="cursor:pointer;"><input type="checkbox" id="showFavoritesToggle" style="margin-right:0.5rem;">Show Favorites Only</label>
             </div>
+            <form id="submitQuoteForm" style="margin-top:1.5rem;display:flex;flex-direction:column;align-items:center;gap:0.5rem;">
+                <input type="text" id="userQuoteText" placeholder="Your quote..." required style="width:90%;max-width:350px;padding:0.5rem;border-radius:8px;border:1px solid #cbd5e1;">
+                <input type="text" id="userQuoteAuthor" placeholder="Author (optional)" style="width:90%;max-width:350px;padding:0.5rem;border-radius:8px;border:1px solid #cbd5e1;">
+                <button type="submit" class="theme-switch" style="width:120px;">Submit Quote</button>
+                <div id="submitQuoteMsg" style="color:#22c55e;display:none;">Thank you! Your quote is submitted for review.</div>
+            </form>
         </div>
         <button id="themeSwitch" class="theme-switch">Switch Theme</button>
         <a href="admin.html" class="theme-switch" style="display:inline-block;text-align:center;margin-top:0.5rem;">Admin Login</a>
@@ -150,6 +156,23 @@
             }
             currentIndex = 0;
             showQuote(currentIndex);
+        });
+
+        // User-submitted quotes
+        document.getElementById('submitQuoteForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const text = document.getElementById('userQuoteText').value.trim();
+            const author = document.getElementById('userQuoteAuthor').value.trim() || 'Anonymous';
+            if (!text) return;
+            let pendingQuotes = JSON.parse(localStorage.getItem('pendingQuotes')) || [];
+            pendingQuotes.push({ text, author });
+            localStorage.setItem('pendingQuotes', JSON.stringify(pendingQuotes));
+            document.getElementById('userQuoteText').value = '';
+            document.getElementById('userQuoteAuthor').value = '';
+            document.getElementById('submitQuoteMsg').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('submitQuoteMsg').style.display = 'none';
+            }, 3000);
         });
     </script>
 </body>
