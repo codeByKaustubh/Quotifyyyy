@@ -1,12 +1,12 @@
-# Quotify
+# Quotifyyyy
 
-> **Note:** Quotify is still in development stages. Features and design may change.
+> **Note:** Quotifyyyy is still in development stages. Features and design may change.
 
-Quotify is a simple web application that displays a random motivational quote each time the page is loaded.
+Quotifyyyy is a simple web application that displays a random motivational quote each time the page is loaded.
 
 
 ## Reference
-- Quote of the Day Source: https://tinyurl.com/5penhwkk
+- Link: https://tinyurl.com/5penhwkk
 
 ## Features
 - Displays a random quote and its author from a predefined list
