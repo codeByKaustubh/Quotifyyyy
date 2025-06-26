@@ -86,6 +86,10 @@
         <h2>Moderate User-Submitted Quotes</h2>
         <ul id="pendingQuotesList"></ul>
     </div>
+    <div id="feedbackReviewPanel" class="admin-panel" style="display:none; margin-top: 2rem;">
+        <h2>User Feedback</h2>
+        <ul id="feedbackList"></ul>
+    </div>
     <script>
         // Use localStorage to persist quotes between sessions
         let quotes = JSON.parse(localStorage.getItem('quotes')) || [
@@ -234,6 +238,38 @@
             }
         });
         observer.observe(adminPanel, { attributes: true, attributeFilter: ['style'] });
+
+        // Feedback review for admin
+        const feedbackReviewPanel = document.getElementById('feedbackReviewPanel');
+        const feedbackList = document.getElementById('feedbackList');
+
+        function renderFeedbackList() {
+            let userFeedback = JSON.parse(localStorage.getItem('userFeedback')) || [];
+            feedbackList.innerHTML = '';
+            if (userFeedback.length === 0) {
+                feedbackList.innerHTML = '<li style="color:#64748b;">No feedback yet.</li>';
+                return;
+            }
+            userFeedback.forEach((f, i) => {
+                const li = document.createElement('li');
+                li.style.marginBottom = '1rem';
+                li.innerHTML = `<span style="color:#334155;">${f.text}</span><br><span style="font-size:0.9em;color:#64748b;">${new Date(f.date).toLocaleString()}</span>`;
+                feedbackList.appendChild(li);
+            });
+        }
+
+        function showFeedbackPanel() {
+            feedbackReviewPanel.style.display = 'block';
+            renderFeedbackList();
+        }
+
+        // Show feedback panel after admin login
+        const feedbackObserver = new MutationObserver(() => {
+            if (adminPanel.style.display === 'block') {
+                showFeedbackPanel();
+            }
+        });
+        feedbackObserver.observe(adminPanel, { attributes: true, attributeFilter: ['style'] });
     </script>
 </body>
 </html> 
