@@ -16,6 +16,10 @@
                 <button id="prevQuote" class="theme-switch" style="margin-right:0.5rem;">Previous</button>
                 <button id="nextQuote" class="theme-switch">Next</button>
                 <button id="readAloudBtn" class="theme-switch" style="margin-left:0.5rem;">🔊 Read Aloud</button>
+                <button id="favoriteBtn" class="theme-switch" style="margin-left:0.5rem;">☆ Favorite</button>
+            </div>
+            <div style="margin-top:0.5rem;">
+                <label style="cursor:pointer;"><input type="checkbox" id="showFavoritesToggle" style="margin-right:0.5rem;">Show Favorites Only</label>
             </div>
         </div>
         <button id="themeSwitch" class="theme-switch">Switch Theme</button>
@@ -30,15 +34,21 @@
             { text: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson" }
         ];
         let currentIndex = 0;
+        let filteredQuotes = [...quotes];
+        let favorites = JSON.parse(localStorage.getItem('favoriteQuotes')) || [];
+        let showFavoritesOnly = false;
         function showQuote(index, animation) {
-            if (quotes.length === 0) {
-                document.getElementById('quote').textContent = "No quotes available.";
+            if (filteredQuotes.length === 0) {
+                document.getElementById('quote').textContent = "No quotes found.";
                 document.getElementById('author').textContent = "";
+                document.getElementById('favoriteBtn').style.visibility = 'hidden';
             } else {
                 const quoteElem = document.getElementById('quote');
                 const authorElem = document.getElementById('author');
-                quoteElem.textContent = `"${quotes[index].text}"`;
-                authorElem.textContent = `- ${quotes[index].author}`;
+                quoteElem.textContent = `"${filteredQuotes[index].text}"`;
+                authorElem.textContent = `- ${filteredQuotes[index].author}`;
+                document.getElementById('favoriteBtn').style.visibility = 'visible';
+                updateFavoriteBtn();
                 if (animation) {
                     quoteElem.classList.remove('swipe-left', 'swipe-right');
                     authorElem.classList.remove('swipe-left', 'swipe-right');
@@ -96,6 +106,57 @@
             const author = document.getElementById('author').textContent;
             const utterance = new SpeechSynthesisUtterance(`${quote} ${author}`);
             window.speechSynthesis.speak(utterance);
+        });
+
+        function getCurrentQuoteObj() {
+            return filteredQuotes[currentIndex];
+        }
+
+        function isFavorite(quoteObj) {
+            return favorites.some(f => f.text === quoteObj.text && f.author === quoteObj.author);
+        }
+
+        function updateFavoriteBtn() {
+            const btn = document.getElementById('favoriteBtn');
+            const quoteObj = getCurrentQuoteObj();
+            if (quoteObj && isFavorite(quoteObj)) {
+                btn.textContent = '★ Favorited';
+            } else {
+                btn.textContent = '☆ Favorite';
+            }
+        }
+
+        document.getElementById('favoriteBtn').addEventListener('click', function() {
+            const quoteObj = getCurrentQuoteObj();
+            if (!quoteObj) return;
+            if (isFavorite(quoteObj)) {
+                favorites = favorites.filter(f => !(f.text === quoteObj.text && f.author === quoteObj.author));
+            } else {
+                favorites.push(quoteObj);
+            }
+            localStorage.setItem('favoriteQuotes', JSON.stringify(favorites));
+            updateFavoriteBtn();
+        });
+
+        document.getElementById('showFavoritesToggle').addEventListener('change', function(e) {
+            showFavoritesOnly = e.target.checked;
+            if (showFavoritesOnly) {
+                filteredQuotes = quotes.filter(q => favorites.some(f => f.text === q.text && f.author === q.author));
+            } else {
+                filteredQuotes = [...quotes];
+            }
+            currentIndex = 0;
+            showQuote(currentIndex);
+        });
+
+        document.getElementById('searchBar').addEventListener('input', function(e) {
+            filterQuotes(e.target.value);
+            // If showing favorites, re-filter to favorites only
+            if (showFavoritesOnly) {
+                filteredQuotes = filteredQuotes.filter(q => favorites.some(f => f.text === q.text && f.author === q.author));
+            }
+            currentIndex = 0;
+            showQuote(currentIndex);
         });
     </script>
 </body>
