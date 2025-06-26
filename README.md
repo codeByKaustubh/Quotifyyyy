@@ -34,7 +34,8 @@ Quotifyyyy is a modern web application for discovering, sharing, and managing mo
 
 ## Notes
 - All data is stored in your browser's localStorage. Quotes, favorites, and feedback are not shared across devices unless a backend is added.
-- For cross-device sharing, see the backend setup instructions (not included by default).
+- For cross-device sharing, see the backend setup instructions (not included by default)
+- Backend will be added soon.
 
 ## Requirements
 - Modern web browser (Chrome, Firefox, Edge, Safari)
