@@ -8,7 +8,6 @@
 </head>
 <body>
     <div class="container">
-        <input type="text" id="searchBar" placeholder="Search quotes or authors..." style="width:100%;margin-bottom:1rem;padding:0.5rem 1rem;border-radius:8px;border:1px solid #cbd5e1;">
         <h1>Quotifyyyy</h1>
         <div class="quote-box">
             <p id="quote">"The best way to get started is to quit talking and begin doing."</p>
@@ -29,50 +28,33 @@
             { text: "The only place where success comes before work is in the dictionary.", author: "Vidal Sassoon" },
             { text: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson" }
         ];
-        let filteredQuotes = [...quotes];
         let currentIndex = 0;
         function showQuote(index) {
-            if (filteredQuotes.length === 0) {
-                document.getElementById('quote').textContent = "No quotes found.";
+            if (quotes.length === 0) {
+                document.getElementById('quote').textContent = "No quotes available.";
                 document.getElementById('author').textContent = "";
             } else {
-                document.getElementById('quote').textContent = `"${filteredQuotes[index].text}"`;
-                document.getElementById('author').textContent = `- ${filteredQuotes[index].author}`;
+                document.getElementById('quote').textContent = `"${quotes[index].text}"`;
+                document.getElementById('author').textContent = `- ${quotes[index].author}`;
             }
+
         }
-        function filterQuotes(query) {
-            query = query.trim().toLowerCase();
-            if (!query) {
-                filteredQuotes = [...quotes];
-            } else {
-                filteredQuotes = quotes.filter(q =>
-                    q.text.toLowerCase().includes(query) ||
-                    q.author.toLowerCase().includes(query)
-                );
-            }
-            currentIndex = 0;
-            showQuote(currentIndex);
-        }
-        if (filteredQuotes.length > 0) {
-            currentIndex = Math.floor(Math.random() * filteredQuotes.length);
+        if (quotes.length > 0) {
+            currentIndex = Math.floor(Math.random() * quotes.length);
         }
         showQuote(currentIndex);
 
         document.getElementById('nextQuote').addEventListener('click', function() {
-            if (filteredQuotes.length > 0) {
-                currentIndex = (currentIndex + 1) % filteredQuotes.length;
+            if (quotes.length > 0) {
+                currentIndex = (currentIndex + 1) % quotes.length;
                 showQuote(currentIndex);
             }
         });
         document.getElementById('prevQuote').addEventListener('click', function() {
-            if (filteredQuotes.length > 0) {
-                currentIndex = (currentIndex - 1 + filteredQuotes.length) % filteredQuotes.length;
+            if (quotes.length > 0) {
+                currentIndex = (currentIndex - 1 + quotes.length) % quotes.length;
                 showQuote(currentIndex);
             }
-        });
-
-        document.getElementById('searchBar').addEventListener('input', function(e) {
-            filterQuotes(e.target.value);
         });
 
         // Theme switch logic
