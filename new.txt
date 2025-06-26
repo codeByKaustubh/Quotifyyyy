@@ -23,3 +23,13 @@ Store favorites in localStorage.
 
 7. Feedback (done)
 Let users submit a feedback 
+
+8. Quote Image Generator
+Let users generate a shareable image of a quote with a nice background for social media.
+
+9. Notifications
+Notify users when their submitted quote is approved.
+Show a notification when a new quote is added.
+
+10. Gamification
+Add achievements or badges for users who submit, favorite, or share quotes.
