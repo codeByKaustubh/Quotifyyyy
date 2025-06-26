@@ -7,17 +7,20 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+    <button id="prevQuote" class="theme-switch nav-side-btn nav-absolute nav-left">Previous</button>
     <div class="container">
         <div style="margin-bottom:0.5rem;color:#64748b;font-size:0.98rem;text-align:center;">
             Quotifyyyy is your daily source of inspiration. Browse and save your favorite motivational quotes!
         </div>
         <h1>Quotifyyyy</h1>
         <div class="quote-box">
-            <p id="quote">"The best way to get started is to quit talking and begin doing."</p>
-            <span id="author">- Walt Disney</span>
+            <div class="quote-center">
+                <p id="quote">"The best way to get started is to quit talking and begin doing."</p>
+                <span id="author">- Walt Disney</span>
+            </div>
             <div style="margin-top:1rem;">
                 <button id="prevQuote" class="theme-switch" style="margin-right:0.5rem;">Previous</button>
-                <button id="nextQuote" class="theme-switch">Next</button>
+                <button id="nextQuote" class="theme-switch nav-side-btn nav-absolute nav-right">Next</button>
                 <button id="readAloudBtn" class="theme-switch" style="margin-left:0.5rem;">Read Aloud</button>
                 <button id="favoriteBtn" class="theme-switch" style="margin-left:0.5rem;">Favorite</button>
                 <button id="copyBtn" class="theme-switch" style="margin-left:0.5rem;">Copy</button>
@@ -45,6 +48,7 @@
             <div id="feedbackMsg" style="color:#22c55e;display:none;margin-top:0.5rem;">Thank you for your feedback!</div>
         </form>
     </div>
+    <button id="nextQuote" class="theme-switch nav-side-btn nav-absolute nav-right">Next</button>
     <script>
         let quotes = JSON.parse(localStorage.getItem('quotes')) || [
             { text: "The best way to get started is to quit talking and begin doing.", author: "Walt Disney" },
