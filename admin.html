@@ -253,7 +253,7 @@
             userFeedback.forEach((f, i) => {
                 const li = document.createElement('li');
                 li.style.marginBottom = '1rem';
-                li.innerHTML = `<span style="color:#334155;">${f.text}</span><br><span style="font-size:0.9em;color:#64748b;">${new Date(f.date).toLocaleString()}</span>`;
+                li.innerHTML = `<span style="color:#334155;">${f.text}</span><br><span style="font-size:0.9em;color:#64748b;">${new Date(f.date).toLocaleString()}</span> <button class="remove-feedback" data-index="${i}" style="background:#ef4444;margin-left:0.5rem;">Remove</button>`;
                 feedbackList.appendChild(li);
             });
         }
@@ -270,6 +270,16 @@
             }
         });
         feedbackObserver.observe(adminPanel, { attributes: true, attributeFilter: ['style'] });
+
+        feedbackList.addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove-feedback')) {
+                let userFeedback = JSON.parse(localStorage.getItem('userFeedback')) || [];
+                const idx = e.target.getAttribute('data-index');
+                userFeedback.splice(idx, 1);
+                localStorage.setItem('userFeedback', JSON.stringify(userFeedback));
+                renderFeedbackList();
+            }
+        });
     </script>
 </body>
 </html> 
