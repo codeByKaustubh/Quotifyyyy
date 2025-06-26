@@ -90,6 +90,7 @@ body.dark-theme #author {
     font-size: 1rem;
     cursor: pointer;
     transition: background 0.3s, color 0.3s;
+    text-decoration: none;
 }
 
 body.dark-theme .theme-switch {
@@ -127,6 +128,7 @@ body.dark-theme .theme-switch {
 /* Button and panel hover/active animations */
 .theme-switch, .admin-panel button {
   transition: background 0.2s, color 0.2s, transform 0.1s;
+  text-decoration: none;
 }
 .theme-switch:hover, .admin-panel button:hover {
   background: #6366f1;
