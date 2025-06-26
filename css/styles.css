@@ -93,4 +93,41 @@ body.dark-theme #author {
 body.dark-theme .theme-switch {
     background: #a5b4fc;
     color: #23272f;
+}
+
+@media (max-width: 600px) {
+  .container {
+    max-width: 95vw;
+    padding: 1.2rem 0.5rem;
+    border-radius: 10px;
+  }
+  h1 {
+    font-size: 1.3rem;
+  }
+  .quote-box {
+    padding: 1rem 0.5rem;
+    font-size: 1rem;
+  }
+  #quote {
+    font-size: 1rem;
+  }
+  #author {
+    font-size: 0.9rem;
+  }
+  .theme-switch, .admin-panel button, .admin-panel input[type="text"] {
+    font-size: 1rem;
+    padding: 0.7rem 1.2rem;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    box-sizing: border-box;
+  }
+  .admin-panel form {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .admin-panel li {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.3rem;
+  }
 } 
