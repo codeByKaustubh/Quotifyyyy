@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotifyyyy Admin Panel</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        .admin-panel {
+            margin: 2rem auto;
+            max-width: 500px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(60, 72, 88, 0.10);
+            padding: 2rem 1.5rem;
+        }
+        .admin-panel h2 {
+            margin-bottom: 1.5rem;
+            color: #4f46e5;
+        }
+        .admin-panel form {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .admin-panel input[type="text"] {
+            flex: 1;
+            padding: 0.5rem;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+        }
+        .admin-panel button {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border: none;
+            background: #4f46e5;
+            color: #fff;
+            cursor: pointer;
+        }
+        .admin-panel ul {
+            list-style: none;
+            padding: 0;
+        }
+        .admin-panel li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .admin-panel .edit-quote-text,
+        .admin-panel .edit-quote-author {
+            flex: 1;
+            padding: 0.3rem 0.5rem;
+            border-radius: 4px;
+            border: 1px solid #cbd5e1;
+        }
+        .admin-panel .save-quote {
+            background: #22c55e;
+        }
+        .admin-panel .remove-quote {
+            background: #ef4444;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-panel">
+        <h2>Admin Panel</h2>
+        <form id="addQuoteForm">
+            <input type="text" id="newQuoteText" placeholder="Quote text" required>
+            <input type="text" id="newQuoteAuthor" placeholder="Author" required>
+            <button type="submit">Add Quote</button>
+        </form>
+        <ul id="quotesList"></ul>
+    </div>
+    <script>
+        // Use localStorage to persist quotes between sessions
+        let quotes = JSON.parse(localStorage.getItem('quotes')) || [
+            { text: "The best way to get started is to quit talking and begin doing.", author: "Walt Disney" },
+            { text: "Success is not the key to happiness. Happiness is the key to success.", author: "Albert Schweitzer" },
+            { text: "Your time is limited, so don't waste it living someone else's life.", author: "Steve Jobs" },
+            { text: "The only place where success comes before work is in the dictionary.", author: "Vidal Sassoon" },
+            { text: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson" }
+        ];
+
+        const quotesList = document.getElementById('quotesList');
+        const addQuoteForm = document.getElementById('addQuoteForm');
+        const newQuoteText = document.getElementById('newQuoteText');
+        const newQuoteAuthor = document.getElementById('newQuoteAuthor');
+
+        function saveQuotes() {
+            localStorage.setItem('quotes', JSON.stringify(quotes));
+        }
+
+        function renderQuotesList() {
+            quotesList.innerHTML = '';
+            quotes.forEach((q, i) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <input type='text' value="${q.text}" data-index="${i}" class="edit-quote-text">
+                    <input type='text' value="${q.author}" data-index="${i}" class="edit-quote-author">
+                    <button class="save-quote" data-index="${i}">Save</button>
+                    <button class="remove-quote" data-index="${i}">Remove</button>
+                `;
+                quotesList.appendChild(li);
+            });
+        }
+        renderQuotesList();
+
+        addQuoteForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            quotes.push({ text: newQuoteText.value, author: newQuoteAuthor.value });
+            newQuoteText.value = '';
+            newQuoteAuthor.value = '';
+            saveQuotes();
+            renderQuotesList();
+        });
+
+        quotesList.addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove-quote')) {
+                const idx = e.target.getAttribute('data-index');
+                quotes.splice(idx, 1);
+                saveQuotes();
+                renderQuotesList();
+            } else if (e.target.classList.contains('save-quote')) {
+                const idx = e.target.getAttribute('data-index');
+                const textInput = quotesList.querySelector(`.edit-quote-text[data-index='${idx}']`);
+                const authorInput = quotesList.querySelector(`.edit-quote-author[data-index='${idx}']`);
+                quotes[idx].text = textInput.value;
+                quotes[idx].author = authorInput.value;
+                saveQuotes();
+                renderQuotesList();
+            }
+        });
+    </script>
+</body>
+</html> 
