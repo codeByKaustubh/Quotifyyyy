@@ -2,23 +2,40 @@
 
 > **Note:** Quotifyyyy is still in development stages. Features and design may change.
 
-Quotifyyyy is a simple web application that displays a random motivational quote each time the page is loaded.
-
-
-## Reference
-- Link: https://tinyurl.com/5penhwkk
+Quotifyyyy is a modern web application for discovering, sharing, and managing motivational quotes. It features user login, favorites, quote submission, sharing, feedback, and a full admin panel for moderation—all with a beautiful, responsive design.
 
 ## Features
-- Displays a random quote and its author from a predefined list
-- Clean and modern user interface
-- Responsive design for desktop and mobile
+- User login (local, per device)
+- Browse, favorite, and navigate quotes (with Previous/Next buttons)
+- Mark quotes as favorites and filter to show only favorites
+- Share quotes (copy, Twitter, Instagram Story)
+- Generate a shareable image of any quote
+- Submit your own quotes for admin approval
+- Submit feedback to the admin
+- Switch between light and dark themes
+- Fully responsive and mobile-friendly UI
+- **Admin panel**: add/edit/remove quotes, moderate user-submitted quotes, review user feedback
 
 ## Files
-- `frontend/index.html`: The main HTML file for the app. It contains the structure of the page and JavaScript to display a random quote.
-- `frontend/styles.css`: The CSS file that styles the app, providing a modern and visually appealing look.
+- `index.html`: Main user interface for browsing, submitting, and sharing quotes
+- `admin.html`: Admin panel for managing quotes, moderation, and feedback
+- `css/styles.css`: Styles for both user and admin panels
 
 ## How to Use
-1. Open `frontend/index.html` in your web browser.
-2. Each time you refresh the page, a new quote will be displayed.
+1. **Open `index.html` in your web browser.**
+   - Log in with any username (stored locally)
+   - Browse and interact with quotes using the navigation and action buttons
+   - Submit your own quotes or feedback for admin review
+2. **Open `admin.html` for admin features.**
+   - Log in with the admin password (default: `admin123`)
+   - Add, edit, or remove quotes
+   - Approve or reject user-submitted quotes
+   - Review and remove user feedback
 
-No installation or dependencies are required—just open the HTML file to get started!
+## Notes
+- All data is stored in your browser's localStorage. Quotes, favorites, and feedback are not shared across devices unless a backend is added.
+- For cross-device sharing, see the backend setup instructions (not included by default).
+
+## Requirements
+- Modern web browser (Chrome, Firefox, Edge, Safari)
+- No installation or dependencies required for the frontend—just open the HTML files to get started!
