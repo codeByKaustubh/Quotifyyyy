@@ -155,18 +155,14 @@
             if (adminPassword.value === PASSWORD) {
                 loginPanel.style.display = 'none';
                 adminPanel.style.display = 'block';
-                sessionStorage.setItem('admin-auth', 'true');
             } else {
                 loginError.style.display = 'block';
                 adminPassword.value = '';
             }
         });
 
-        // If already authenticated in this session, skip login (optional, for convenience)
-        if (sessionStorage.getItem('admin-auth') === 'true') {
-            loginPanel.style.display = 'none';
-            adminPanel.style.display = 'block';
-        }
+        // Remove auto-login: always require password on each visit
+        sessionStorage.removeItem('admin-auth');
     </script>
 </body>
 </html> 
