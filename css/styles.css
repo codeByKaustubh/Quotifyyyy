@@ -420,4 +420,49 @@ button.nav-side-btn.nav-absolute:active {
 /* If both FABs are visible, offset the login FAB */
 .fab + .login-fab {
   top: 4.5rem;
+}
+
+.login-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.2rem;
+}
+.login-tab {
+  background: none;
+  border: none;
+  color: #5b86e5;
+  font-size: 1.08rem;
+  font-weight: 600;
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  outline: none;
+}
+.login-tab.active, .login-tab:focus {
+  background: linear-gradient(135deg, #36d1c4 0%, #5b86e5 100%);
+  color: #fff;
+}
+.login-tab-content {
+  margin-bottom: 1.2rem;
+}
+.close-modal-btn {
+  position: absolute;
+  top: 0.7rem;
+  right: 1.2rem;
+  background: none;
+  border: none;
+  color: #5b86e5;
+  font-size: 2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.2s;
+  outline: none;
+}
+.close-modal-btn:hover, .close-modal-btn:focus {
+  color: #36d1c4;
+}
+.login-modal-content {
+  position: relative;
 } 
