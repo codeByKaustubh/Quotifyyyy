@@ -465,4 +465,15 @@ button.nav-side-btn.nav-absolute:active {
 }
 .login-modal-content {
   position: relative;
+}
+
+#themeSwitch {
+  font-size: 1.25rem;
+  padding: 1rem 2.2rem;
+  border-radius: 14px;
+  font-weight: 700;
+  min-width: 180px;
+  margin: 1.2rem auto 0 auto;
+  display: block;
+  box-shadow: 0 2px 12px rgba(91, 134, 229, 0.10);
 } 
