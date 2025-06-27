@@ -63,16 +63,7 @@
     </style>
 </head>
 <body>
-    <div id="loginPanel" class="admin-panel">
-        <a href="index.html" class="theme-switch" style="display:block;margin:0 auto 1rem auto;width:max-content;text-align:center;">Home</a>
-        <h2>Admin Login</h2>
-        <form id="loginForm">
-            <input type="password" id="adminPassword" placeholder="Enter admin password" required>
-            <button type="submit">Login</button>
-        </form>
-        <div id="loginError" style="color:#ef4444;display:none;margin-top:0.5rem;">Incorrect password. Try again.</div>
-    </div>
-    <div id="adminPanel" class="admin-panel" style="display:none;">
+    <div id="adminPanel" class="admin-panel">
         <a href="index.html" class="theme-switch" style="display:block;margin:0 auto 1rem auto;width:max-content;text-align:center;">Home</a>
         <h2>Admin Panel</h2>
         <form id="addQuoteForm">
@@ -82,11 +73,11 @@
         </form>
         <ul id="quotesList"></ul>
     </div>
-    <div id="moderationPanel" class="admin-panel" style="display:none; margin-top: 2rem;">
+    <div id="moderationPanel" class="admin-panel" style="margin-top: 2rem;">
         <h2>Moderate User-Submitted Quotes</h2>
         <ul id="pendingQuotesList"></ul>
     </div>
-    <div id="feedbackReviewPanel" class="admin-panel" style="display:none; margin-top: 2rem;">
+    <div id="feedbackReviewPanel" class="admin-panel" style="margin-top: 2rem;">
         <h2>User Feedback</h2>
         <ul id="feedbackList"></ul>
     </div>
@@ -157,28 +148,6 @@
             }
         });
 
-        // Simple authentication
-        const loginPanel = document.getElementById('loginPanel');
-        const adminPanel = document.getElementById('adminPanel');
-        const loginForm = document.getElementById('loginForm');
-        const adminPassword = document.getElementById('adminPassword');
-        const loginError = document.getElementById('loginError');
-        const PASSWORD = 'admin123'; // Change this to your desired password
-
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            if (adminPassword.value === PASSWORD) {
-                loginPanel.style.display = 'none';
-                adminPanel.style.display = 'block';
-            } else {
-                loginError.style.display = 'block';
-                adminPassword.value = '';
-            }
-        });
-
-        // Remove auto-login: always require password on each visit
-        sessionStorage.removeItem('admin-auth');
-
         // Moderation for user-submitted quotes
         const moderationPanel = document.getElementById('moderationPanel');
         const pendingQuotesList = document.getElementById('pendingQuotesList');
@@ -229,15 +198,7 @@
             moderationPanel.style.display = 'block';
             renderPendingQuotes();
         }
-
-        // Show moderation panel after admin login
-        const originalShowAdminPanel = adminPanel.style.display;
-        const observer = new MutationObserver(() => {
-            if (adminPanel.style.display === 'block') {
-                showModerationPanel();
-            }
-        });
-        observer.observe(adminPanel, { attributes: true, attributeFilter: ['style'] });
+        showModerationPanel();
 
         // Feedback review for admin
         const feedbackReviewPanel = document.getElementById('feedbackReviewPanel');
@@ -257,19 +218,7 @@
                 feedbackList.appendChild(li);
             });
         }
-
-        function showFeedbackPanel() {
-            feedbackReviewPanel.style.display = 'block';
-            renderFeedbackList();
-        }
-
-        // Show feedback panel after admin login
-        const feedbackObserver = new MutationObserver(() => {
-            if (adminPanel.style.display === 'block') {
-                showFeedbackPanel();
-            }
-        });
-        feedbackObserver.observe(adminPanel, { attributes: true, attributeFilter: ['style'] });
+        renderFeedbackList();
 
         feedbackList.addEventListener('click', function(e) {
             if (e.target.classList.contains('remove-feedback')) {
