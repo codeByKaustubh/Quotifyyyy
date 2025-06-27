@@ -227,4 +227,15 @@ body.dark-theme .theme-switch {
   font-size: 1.25rem;
   border-radius: 12px;
   align-self: stretch;
+}
+
+/* Remove ALL hover/focus/active effects for prev/next navigation buttons */
+button.nav-side-btn.nav-absolute:hover,
+button.nav-side-btn.nav-absolute:focus,
+button.nav-side-btn.nav-absolute:active {
+  background: #4f46e5 !important;
+  color: #fff !important;
+  transform: none !important;
+  box-shadow: none !important;
+  outline: none !important;
 } 
