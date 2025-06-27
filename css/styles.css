@@ -246,17 +246,34 @@ button.nav-side-btn.nav-absolute:active {
   outline: none;
 }
 
-/* Absolutely neutralize all hover/focus/active effects for prev/next navigation buttons */
+/* Forcefully remove all hover/focus/active effects for prev/next navigation buttons */
+#prevQuote, #nextQuote {
+  background: linear-gradient(135deg, #36d1c4 0%, #5b86e5 100%) !important;
+  color: #fff !important;
+  box-shadow: 0 6px 24px 0 rgba(91, 134, 229, 0.18), 0 1.5px 8px 0 rgba(54, 209, 196, 0.12) !important;
+  border-radius: 50% !important;
+  width: 56px !important;
+  height: 56px !important;
+  font-size: 2.1rem !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  outline: none !important;
+  border: none !important;
+  user-select: none !important;
+  transition: box-shadow 0.18s, transform 0.18s, background 0.18s;
+  margin: 0 0.7rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #prevQuote:hover, #prevQuote:focus, #prevQuote:active,
 #nextQuote:hover, #nextQuote:focus, #nextQuote:active {
-  background: #fff !important;
-  color: #5f2c82 !important;
-  box-shadow: 0 2px 12px rgba(160, 140, 209, 0.18) !important;
-  transform: none !important;
-  border: none !important;
+  background: linear-gradient(135deg, #5b86e5 0%, #36d1c4 100%) !important;
+  color: #fff !important;
+  box-shadow: 0 10px 32px 0 rgba(91, 134, 229, 0.22), 0 2px 12px 0 rgba(54, 209, 196, 0.16) !important;
   outline: none !important;
   filter: none !important;
-  transition: none !important;
   opacity: 1 !important;
-  cursor: pointer !important;
+  transform: scale(1.08) !important;
 } 
