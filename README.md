@@ -2,7 +2,7 @@
 
 > **Note:** Quotifyyyy is still in development stages. Features and design may change.
 
-Quotifyyyy is a modern web application for discovering, sharing, and managing motivational quotes. It features user login, favorites, quote submission, sharing, feedback, and a full admin panel for moderation—all with a beautiful, responsive design.
+Quotifyyyy is a modern web application for discovering, sharing, and managing motivational quotes. It features user login, favorites, quote submission, sharing, feedback, and a full admin panel for moderation—all with a beautiful, responsive design. <br>
 Link: https://quotifyyyy.netlify.app
 
 ## Features
