@@ -283,23 +283,27 @@ button.nav-side-btn.nav-absolute:active {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
   background: rgba(36, 41, 46, 0.45);
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(8px);
   z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .login-modal-content {
-  background: rgba(255,255,255,0.95);
-  border-radius: 1.5rem;
-  box-shadow: 0 8px 32px 0 rgba(91, 134, 229, 0.18);
-  padding: 2.5rem 2rem 2rem 2rem;
-  max-width: 350px;
-  width: 90vw;
+  background: rgba(255,255,255,0.18);
+  border-radius: 2rem;
+  box-shadow: 0 8px 32px 0 rgba(54, 209, 196, 0.18), 0 2px 16px 0 rgba(91, 134, 229, 0.13);
+  border: 1.5px solid rgba(91, 134, 229, 0.13);
+  padding: 2.2rem 2rem 2rem 2rem;
+  max-width: 370px;
+  width: 95vw;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 .login-modal-content h2 {
   color: #5b86e5;
@@ -307,41 +311,122 @@ button.nav-side-btn.nav-absolute:active {
   margin-bottom: 1.2rem;
   font-weight: 700;
 }
-#loginForm {
+.login-tabs {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  justify-content: center;
+  gap: 0.7rem;
+  margin-bottom: 1.5rem;
+}
+.login-tab {
+  background: rgba(255,255,255,0.5);
+  border: none;
+  color: #5b86e5;
+  font-size: 1.13rem;
+  font-weight: 700;
+  padding: 0.7rem 1.6rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  outline: none;
+  box-shadow: 0 2px 8px rgba(91, 134, 229, 0.08);
+  margin-bottom: -2px;
+}
+.login-tab.active, .login-tab:focus {
+  background: linear-gradient(135deg, #36d1c4 0%, #5b86e5 100%);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(91, 134, 229, 0.13);
+  z-index: 2;
+}
+.login-tab:hover:not(.active) {
+  background: rgba(91, 134, 229, 0.12);
+  color: #36d1c4;
+}
+.login-tab-content {
+  margin-bottom: 1.5rem;
   width: 100%;
 }
-#usernameInput {
-  border-radius: 8px;
-  border: 1.5px solid #e0e0e0;
-  padding: 0.7rem 1rem;
-  font-size: 1.1rem;
-  font-family: inherit;
-  background: rgba(255,255,255,0.7);
-  outline: none;
-  transition: border-color 0.2s;
+.login-tab-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  align-items: center;
 }
-#usernameInput:focus {
+.login-tab-content input {
+  border-radius: 1.5rem;
+  border: 1.5px solid #e0e0e0;
+  padding: 1.1rem 1.3rem;
+  font-size: 1.13rem;
+  font-family: inherit;
+  background: rgba(255,255,255,0.85);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+  max-width: 260px;
+  box-shadow: 0 1px 4px rgba(91, 134, 229, 0.06);
+}
+.login-tab-content input:focus {
   border-color: #36d1c4;
+  box-shadow: 0 2px 8px rgba(54, 209, 196, 0.10);
 }
 .login-btn {
   background: linear-gradient(135deg, #36d1c4 0%, #5b86e5 100%);
   color: #fff;
   border: none;
-  border-radius: 10px;
-  font-size: 1.1rem;
-  padding: 0.7rem 1.2rem;
+  border-radius: 2rem;
+  font-size: 1.13rem;
+  font-weight: 700;
+  padding: 1.1rem 2.2rem;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(91, 134, 229, 0.10);
   transition: background 0.2s, color 0.2s, transform 0.1s;
+  margin-top: 0.2rem;
 }
 .login-btn:hover, .login-btn:focus {
   background: linear-gradient(135deg, #5b86e5 0%, #36d1c4 100%);
   color: #fff;
   transform: translateY(-2px) scale(1.04);
 }
+.close-modal-btn {
+  position: absolute;
+  top: -18px;
+  right: -18px;
+  background: linear-gradient(135deg, #36d1c4 0%, #5b86e5 100%);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 2rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(91, 134, 229, 0.13);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s, transform 0.1s;
+  outline: none;
+  z-index: 10;
+}
+.close-modal-btn:hover, .close-modal-btn:focus {
+  background: linear-gradient(135deg, #5b86e5 0%, #36d1c4 100%);
+  color: #fff;
+  transform: scale(1.08);
+}
+.login-modal-content {
+  position: relative;
+}
+
+#themeSwitch {
+  font-size: 1.25rem;
+  padding: 1rem 2.2rem;
+  border-radius: 14px;
+  font-weight: 700;
+  min-width: 180px;
+  margin: 1.2rem auto 0 auto;
+  display: block;
+  box-shadow: 0 2px 12px rgba(91, 134, 229, 0.10);
+}
+
 .user-greeting {
   position: fixed;
   top: 1.2rem;
@@ -422,58 +507,34 @@ button.nav-side-btn.nav-absolute:active {
   top: 4.5rem;
 }
 
-.login-tabs {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-bottom: 1.2rem;
-}
-.login-tab {
-  background: none;
-  border: none;
-  color: #5b86e5;
-  font-size: 1.08rem;
-  font-weight: 600;
-  padding: 0.5rem 1.2rem;
-  border-radius: 8px 8px 0 0;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-  outline: none;
-}
-.login-tab.active, .login-tab:focus {
-  background: linear-gradient(135deg, #36d1c4 0%, #5b86e5 100%);
-  color: #fff;
-}
-.login-tab-content {
-  margin-bottom: 1.2rem;
-}
-.close-modal-btn {
-  position: absolute;
-  top: 0.7rem;
-  right: 1.2rem;
-  background: none;
-  border: none;
-  color: #5b86e5;
-  font-size: 2rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: color 0.2s;
-  outline: none;
-}
-.close-modal-btn:hover, .close-modal-btn:focus {
-  color: #36d1c4;
-}
-.login-modal-content {
-  position: relative;
-}
-
-#themeSwitch {
-  font-size: 1.25rem;
-  padding: 1rem 2.2rem;
-  border-radius: 14px;
-  font-weight: 700;
-  min-width: 180px;
-  margin: 1.2rem auto 0 auto;
-  display: block;
-  box-shadow: 0 2px 12px rgba(91, 134, 229, 0.10);
+@media (max-width: 600px) {
+  .login-modal-content {
+    padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+    border-radius: 1.1rem;
+    max-width: 98vw;
+  }
+  .login-tabs {
+    gap: 0.2rem;
+  }
+  .login-tab {
+    font-size: 1rem;
+    padding: 0.5rem 0.7rem;
+    border-radius: 1.2rem;
+  }
+  .login-tab-content input {
+    font-size: 1rem;
+    padding: 0.7rem 0.7rem;
+    max-width: 98vw;
+  }
+  .login-btn {
+    font-size: 1rem;
+    padding: 0.7rem 1.2rem;
+  }
+  .close-modal-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 1.3rem;
+    top: -10px;
+    right: -10px;
+  }
 } 
