@@ -105,7 +105,6 @@
             { text: "The only place where success comes before work is in the dictionary.", author: "Vidal Sassoon" },
             { text: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson" }
         ];
-
         const quotesList = document.getElementById('quotesList');
         const addQuoteForm = document.getElementById('addQuoteForm');
         const newQuoteText = document.getElementById('newQuoteText');
@@ -116,13 +115,7 @@
         }
 
         function renderQuotesList() {
-            let quotes = JSON.parse(localStorage.getItem('quotes')) || [
-                { text: "The best way to get started is to quit talking and begin doing.", author: "Walt Disney" },
-                { text: "Success is not the key to happiness. Happiness is the key to success.", author: "Albert Schweitzer" },
-                { text: "Your time is limited, so don't waste it living someone else's life.", author: "Steve Jobs" },
-                { text: "The only place where success comes before work is in the dictionary.", author: "Vidal Sassoon" },
-                { text: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson" }
-            ];
+            quotes = JSON.parse(localStorage.getItem('quotes')) || quotes;
             quotesList.innerHTML = '';
             quotes.forEach((q, i) => {
                 const li = document.createElement('li');
@@ -139,18 +132,10 @@
 
         addQuoteForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            // Always fetch the latest quotes from localStorage before adding
-            let currentQuotes = JSON.parse(localStorage.getItem('quotes')) || [
-                { text: "The best way to get started is to quit talking and begin doing.", author: "Walt Disney" },
-                { text: "Success is not the key to happiness. Happiness is the key to success.", author: "Albert Schweitzer" },
-                { text: "Your time is limited, so don't waste it living someone else's life.", author: "Steve Jobs" },
-                { text: "The only place where success comes before work is in the dictionary.", author: "Vidal Sassoon" },
-                { text: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson" }
-            ];
-            currentQuotes.push({ text: newQuoteText.value, author: newQuoteAuthor.value });
-            localStorage.setItem('quotes', JSON.stringify(currentQuotes));
+            quotes.push({ text: newQuoteText.value, author: newQuoteAuthor.value });
             newQuoteText.value = '';
             newQuoteAuthor.value = '';
+            saveQuotes();
             renderQuotesList();
         });
 
@@ -201,9 +186,8 @@
             if (e.target.classList.contains('approve-quote')) {
                 const idx = e.target.getAttribute('data-index');
                 // Add to main quotes
-                let quotes = JSON.parse(localStorage.getItem('quotes')) || [];
                 quotes.push(pendingQuotes[idx]);
-                localStorage.setItem('quotes', JSON.stringify(quotes));
+                saveQuotes();
                 // Remove from pending
                 pendingQuotes.splice(idx, 1);
                 localStorage.setItem('pendingQuotes', JSON.stringify(pendingQuotes));
