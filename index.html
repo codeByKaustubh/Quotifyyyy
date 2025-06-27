@@ -50,6 +50,35 @@
         </form>
     </div>
     <button id="nextQuote" aria-label="Next Quote">&#8594;</button>
+    <!-- Login Modal with Tabs -->
+    <div id="loginOptionsModal" class="login-modal" style="display:none;">
+        <div class="login-modal-content">
+            <div class="login-tabs">
+                <button class="login-tab active" data-tab="user-login">User Login</button>
+                <button class="login-tab" data-tab="admin-login">Admin Login</button>
+                <button class="login-tab" data-tab="user-signup">Sign Up</button>
+            </div>
+            <div class="login-tab-content" id="user-login" style="display:block;">
+                <form id="userLoginForm">
+                    <input type="text" id="userLoginUsername" placeholder="Username" required autocomplete="off">
+                    <button type="submit" class="login-btn">Login as User</button>
+                </form>
+            </div>
+            <div class="login-tab-content" id="admin-login" style="display:none;">
+                <form id="adminLoginForm">
+                    <input type="password" id="adminLoginPassword" placeholder="Admin Password" required autocomplete="off">
+                    <button type="submit" class="login-btn">Login as Admin</button>
+                </form>
+            </div>
+            <div class="login-tab-content" id="user-signup" style="display:none;">
+                <form id="userSignupForm">
+                    <input type="text" id="userSignupUsername" placeholder="Choose a username" required autocomplete="off">
+                    <button type="submit" class="login-btn">Sign Up</button>
+                </form>
+            </div>
+            <button id="closeLoginModal" class="close-modal-btn" title="Close">&times;</button>
+        </div>
+    </div>
     <script>
         let quotes = JSON.parse(localStorage.getItem('quotes')) || [
             { text: "The best way to get started is to quit talking and begin doing.", author: "Walt Disney" },
@@ -291,6 +320,62 @@
             setTimeout(() => {
                 document.getElementById('feedbackMsg').style.display = 'none';
             }, 3000);
+        });
+
+        // Login FAB and Modal Logic
+        document.getElementById('loginFabBtn').addEventListener('click', function() {
+            document.getElementById('loginOptionsModal').style.display = 'flex';
+        });
+        document.getElementById('closeLoginModal').addEventListener('click', function() {
+            document.getElementById('loginOptionsModal').style.display = 'none';
+        });
+        // Tab switching
+        document.querySelectorAll('.login-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.login-tab-content').forEach(c => c.style.display = 'none');
+                this.classList.add('active');
+                document.getElementById(this.dataset.tab).style.display = 'block';
+            });
+        });
+        // User Signup
+        document.getElementById('userSignupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('userSignupUsername').value.trim();
+            if (!username) return;
+            let users = JSON.parse(localStorage.getItem('quotifyUsers') || '[]');
+            if (users.includes(username)) {
+                alert('Username already exists!');
+                return;
+            }
+            users.push(username);
+            localStorage.setItem('quotifyUsers', JSON.stringify(users));
+            alert('Signup successful! You can now log in as user.');
+            document.querySelector('.login-tab[data-tab="user-login"]').click();
+        });
+        // User Login
+        document.getElementById('userLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('userLoginUsername').value.trim();
+            let users = JSON.parse(localStorage.getItem('quotifyUsers') || '[]');
+            if (!users.includes(username)) {
+                alert('User not found. Please sign up first.');
+                return;
+            }
+            alert('User login successful!');
+            document.getElementById('loginOptionsModal').style.display = 'none';
+        });
+        // Admin Login
+        document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('adminLoginPassword').value;
+            const ADMIN_PASSWORD = 'admin123';
+            if (password !== ADMIN_PASSWORD) {
+                alert('Incorrect admin password!');
+                return;
+            }
+            alert('Admin login successful!');
+            document.getElementById('loginOptionsModal').style.display = 'none';
         });
     </script>
 </body>
