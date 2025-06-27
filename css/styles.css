@@ -238,4 +238,25 @@ button.nav-side-btn.nav-absolute:active {
   transform: none !important;
   box-shadow: none !important;
   outline: none !important;
+}
+
+/* Totally remove hover/focus effect for prev/next navigation buttons */
+.nav-btn:hover,
+.nav-btn:focus {
+  outline: none;
+}
+
+/* Absolutely neutralize all hover/focus/active effects for prev/next navigation buttons */
+#prevQuote:hover, #prevQuote:focus, #prevQuote:active,
+#nextQuote:hover, #nextQuote:focus, #nextQuote:active {
+  background: #fff !important;
+  color: #5f2c82 !important;
+  box-shadow: 0 2px 12px rgba(160, 140, 209, 0.18) !important;
+  transform: none !important;
+  border: none !important;
+  outline: none !important;
+  filter: none !important;
+  transition: none !important;
+  opacity: 1 !important;
+  cursor: pointer !important;
 } 
