@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-    <button id="prevQuote" class="theme-switch nav-side-btn nav-absolute nav-left" aria-label="Previous Quote">Previous</button>
+    <button id="prevQuote" aria-label="Previous Quote">&#8592;</button>
     <div class="container">
         <div style="margin-bottom:0.5rem;color:#64748b;font-size:0.98rem;text-align:center;">
             Quotifyyyy is your daily source of inspiration. Browse and save your favorite motivational quotes!
@@ -18,7 +18,7 @@
                 <p id="quote">"The best way to get started is to quit talking and begin doing."</p>
                 <span id="author">- Walt Disney</span>
             </div>
-            <div style="margin-top:1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
+            <div class="action-row">
                 <button id="readAloudBtn" class="theme-switch" style="min-width:110px;">Read Aloud</button>
                 <button id="favoriteBtn" class="theme-switch" style="min-width:110px;">Favorite</button>
                 <button id="copyBtn" class="theme-switch" style="min-width:110px;">Copy</button>
@@ -46,7 +46,7 @@
             <div id="feedbackMsg" style="color:#22c55e;display:none;margin-top:0.5rem;">Thank you for your feedback!</div>
         </form>
     </div>
-    <button id="nextQuote" class="theme-switch nav-side-btn nav-absolute nav-right" aria-label="Next Quote">Next</button>
+    <button id="nextQuote" aria-label="Next Quote">&#8594;</button>
     <script>
         let quotes = JSON.parse(localStorage.getItem('quotes')) || [
             { text: "The best way to get started is to quit talking and begin doing.", author: "Walt Disney" },
